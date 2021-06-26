@@ -7,6 +7,11 @@ use App\Comic;
 
 class ComicController extends Controller
 {
+
+
+
+    // LA FUNZIONE "INDEX" ESEGUE SEMPLICEMENTE UNA LETTURA DEI DATI E LI STAMPA IN "INDEX.BLADE.PHP"  
+
     /**
      * Display a listing of the resource.
      *

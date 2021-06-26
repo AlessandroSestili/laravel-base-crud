@@ -13,15 +13,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// SI RIFERISCE ALLA ROTTA "CREATE"
 Route::get('/comics/create' , "ComicController@create")->name("comics.create");
 
+
+// SI RIFERISCE ALLA ROTTA "STORE"
 Route::post('/comics/store' , "ComicController@store")->name("comics.store");
 
+
+// SI RIFERISCE ALLA ROTTA "INDEX" -> Ci mostra tutti i "comic" disponibili
 Route::get('/comics/index' , "ComicController@index")->name("comics.index");
 
-Route::get('/comics/show' , "ComicController@show")->name("comics.show");
 
-Route::get('/comics/show/{$comic}' , "ComicController@show")->name("comics.show");
+// SI RIFERISCE ALLA ROTTA "SHOW"
+Route::get('/comics/{comic}' , "ComicController@show")->name("comics.show");
 
 
 
