@@ -3,15 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Comic;
 
 class ComicController extends Controller
 {
-
-
-
-    // LA FUNZIONE "INDEX" ESEGUE SEMPLICEMENTE UNA LETTURA DEI DATI E LI STAMPA IN "INDEX.BLADE.PHP"  
-
     /**
      * Display a listing of the resource.
      *
@@ -19,11 +13,7 @@ class ComicController extends Controller
      */
     public function index()
     {
-        $comics = Comic::all();
-
-        return view("comics.index", [
-            "comics" => $comics
-        ]);
+        //
     }
 
     /**
@@ -33,7 +23,7 @@ class ComicController extends Controller
      */
     public function create()
     {
-        return view("comics.create");
+        //
     }
 
     /**
@@ -44,14 +34,7 @@ class ComicController extends Controller
      */
     public function store(Request $request)
     {
-        $dati = $request->all();
-
-        $comic = new Comic;
-
-        $comic->title = $dati["title"];
-        $comic->description = $dati["description"];
-        // salvo i dati
-        $comic->save();
+        //
     }
 
     /**
@@ -60,13 +43,9 @@ class ComicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Comic $comic)
+    public function show($id)
     {
-        // $comic = Comic::find($id);
-
-        return view("comics.show" , [
-            "comic" => $comic 
-        ]);
+        //
     }
 
     /**
