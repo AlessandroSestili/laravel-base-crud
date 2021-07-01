@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Comic;
 use Illuminate\Http\Request;
+use Symfony\Contracts\Service\Attribute\Required;
 
 class ComicController extends Controller
 {
@@ -13,7 +15,11 @@ class ComicController extends Controller
      */
     public function index()
     {
-        //
+        $comics = Comic::all();
+
+        return view("comics.index" , [
+            "comics" => $comics
+        ]);
     }
 
     /**
@@ -23,7 +29,7 @@ class ComicController extends Controller
      */
     public function create()
     {
-        //
+        return view("comics.create");
     }
 
     /**
@@ -34,7 +40,24 @@ class ComicController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Valida i dati in ingresso dal Form in "create"
+        $request->validate([
+            "title" => "required|max:255",
+            "description" => "required",
+            "type" => "required"
+        ]);
+
+        // Recupera tutti i dati che ha inserito l'utente dal "request"
+        $newComicData = $request->all();
+
+        // Crea istanza del Model Comic
+        $newComic = new Comic();
+        // Riempie i dati del Model Comic
+        $newComic->fill($newComicData);
+        // Salva i dati nel database
+        $newComic->save();
+
+        return redirect()->route("comics.index"); 
     }
 
     /**
@@ -45,7 +68,9 @@ class ComicController extends Controller
      */
     public function show($id)
     {
-        //
+        $comic = Comic::findOrFail($id);
+
+        return view("comics.show" , compact("comic"));
     }
 
     /**
@@ -56,7 +81,11 @@ class ComicController extends Controller
      */
     public function edit($id)
     {
-        //
+        $comic = Comic::findOrFail($id);
+
+        return view("comics.edit" , [
+            "comic" => $comic
+        ]);
     }
 
     /**
@@ -68,7 +97,20 @@ class ComicController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // Valida i dati in ingresso dal Form in "create"
+        $request->validate([
+            "title" => "required|max:255",
+            "description" => "required",
+            "type" => "required"
+        ]);
+
+        // Recupera tutti i dati che ha inserito l'utente dal "request"
+        $newComicData = $request->all();
+
+        $comic = Comic::findOrFail($id);
+        $comic->update($newComicData);
+
+        return redirect()->route("comics.index"); 
     }
 
     /**
@@ -79,6 +121,10 @@ class ComicController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $comic = Comic::findOrFail($id);
+
+        $comic->delete();
+
+        return view("comics.index");
     }
 }

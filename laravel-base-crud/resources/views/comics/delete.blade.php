@@ -8,19 +8,20 @@
 </head>
 <body>
 
-    <form action="{{ route("comics.store") }}" method="POST">
+    <form action="{{ route("comics.delete" ,  $comic ->id) }}" method="POST">
         @csrf
+        @method('DELETE')
 
         <label for="title">Title</label>
-        <input type="text" name="title" id="title">
+        <input type="text" name="title" id="title" value="{{ $comic->title }}">
 
         <label for="description">description</label>
-        <input type="text" name="description" id="description">
+        <input type="text" name="description" id="description" value="{{ $comic->description }}">
 
         <label for="type">Type</label>
         <select name="type" id="type">
-            <option value="comic book">Comic Book</option>
-            <option value="graphic novel">Graphic Novel</option>
+            <option value="comic book" {{ $comic->type == "comic book" ? 'selected' : '' }}>Comic Book</option>
+            <option value="graphic novel" {{ $comic->type == "graphic novel" ? 'selected' : '' }}>Graphic Novel</option>
         </select>
 
         <input type="submit" value="Invia">
